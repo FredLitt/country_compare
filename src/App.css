@@ -1,7 +1,18 @@
+.app {
+  text-align: center;
+}
+
+#country-header-wrapper {
+  width: 100%;
+  display: flex;
+}
+
 .name-flag-wrapper {
-  width: 50vw;
+  width: 50%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 img {
@@ -10,5 +21,16 @@ img {
 }
 
 #countries {
-  text-align: center;
+  width: 100%;
+  font-size: 1.5em;
+  text-align: left;
+}
+
+#countries tr:nth-child(even){
+  background-color: lightgrey;
+}
+
+#countries td {
+  border: 0.25vw solid #ddd;
+  padding: 0.25vw;
 }

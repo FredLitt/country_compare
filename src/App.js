@@ -7,16 +7,13 @@ function App() {
 
   const [ countries, setCountries ] = useState(null)
 
-  const [ firstCountry, setFirstCountry ] = useState("")
-  const [ secondCountry, setSecondCountry ] = useState("")
+  const [ firstCountry, setFirstCountry ] = useState("japan")
+  const [ secondCountry, setSecondCountry ] = useState("thailand")
 
-  const getCountryData = async (firstCountryName, secondCountryName) => {
-    const firstCountryResponse = await axios.get(`https://restcountries.com/v3.1/name/${firstCountryName}`)
-    const secondCountryResponse = await axios.get(`https://restcountries.com/v3.1/name/${secondCountryName}`)
-    const firstCountry = firstCountryResponse.data[0]
-    console.log(firstCountry)
-    const secondCountry = secondCountryResponse.data[0]
-    setCountryData(firstCountry, secondCountry)
+  const getCountryData = async (country) => {
+    const countryResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
+    console.log(countryResponse)
+    return countryResponse.data[0]
   }
 
   const setCountryData = (firstCountry, secondCountry) => {
@@ -47,14 +44,28 @@ function App() {
     console.log(countries)
   }
 
+  const renderCountryData = async (firstCountry, secondCountry) => {
+    console.log(firstCountry)
+    const a = await getCountryData(firstCountry)
+    const b = await getCountryData(secondCountry)
+    setCountryData(a, b)
+  }
+
+  const renderRandomCountryData = () => {}
+
   return (
     <div className="App">
-      <div>
-        <h1>Country Compare</h1>
-        <input value={firstCountry} onChange={(e) => setFirstCountry(e.target.value)} type="text" />
-        <input value={secondCountry} onChange={(e) => setSecondCountry(e.target.value)} type="text" />
-      </div>
-      <button onClick={() => getCountryData("japan", "thailand")} type="button">Compare!</button>
+        <h1 id="app-header">Compare Two Countries</h1>
+        <input 
+          placeholder="Enter first country's name" 
+          value={firstCountry} 
+          onChange={(e) => setFirstCountry(e.target.value)} type="text" />
+        <input 
+          placeholder="Enter second country's name" 
+          value={secondCountry} 
+          onChange={(e) => setSecondCountry(e.target.value)} type="text" />
+      <button onClick={() => renderCountryData(firstCountry, secondCountry)} type="button">Compare!</button>
+      <button onClick={renderRandomCountryData}>Compare random</button>
     {countries && <CountryDataDisplay countries={countries} />}
     </div>
   );

@@ -5,9 +5,12 @@ export default function CountryDataDisplay({ countries }) {
   console.log(countries)
   return (
     <>
-      <CountryHeader country={countries.first} />
-      <CountryHeader country={countries.second} />
+      <div id="country-header-wrapper">
+        <CountryHeader country={countries.first} />
+        <CountryHeader country={countries.second} />
+      </div>
       <table id="countries">
+        <tbody>
         <tr>
           <td>Population</td><td>{countries.first.population}</td><td>{countries.second.population}</td>
         </tr>
@@ -29,6 +32,7 @@ export default function CountryDataDisplay({ countries }) {
         <tr>
           <td>Subregion</td><td>{countries.first.subregion}</td><td>{countries.second.subregion}</td>
         </tr>
+        </tbody>
       </table>
       </>
   )
