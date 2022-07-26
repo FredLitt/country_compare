@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CountryDataDisplay from './CountryDataDisplay';
 import axios from 'axios';
 import './App.css';
 
@@ -52,34 +53,9 @@ function App() {
         <h1>Country Compare</h1>
         <input value={firstCountry} onChange={(e) => setFirstCountry(e.target.value)} type="text" />
         <input value={secondCountry} onChange={(e) => setSecondCountry(e.target.value)} type="text" />
-        <button onClick={() => getCountryData("japan", "thailand")} type="button">Compare!</button>
       </div>
-    {countries &&
-    <>
-      <h1>{countries.first.name}</h1>
-      <img src={countries.first.flag} alt="" />
-      <table>
-        <tr>
-          <td>Population</td><td>{countries.first.population}</td>
-        </tr>
-        <tr>
-          <td>Language</td><td>{countries.first.language}</td>
-        </tr>
-        <tr>
-          <td>Currency</td><td>{countries.first.currency}</td>
-        </tr>
-        <tr>
-          <td>Capital</td><td>{countries.first.capital}</td>
-        </tr>
-        <tr>
-          <td>Region</td><td>{countries.first.region}</td>
-        </tr>
-        <tr>
-          <td>Subregion</td><td>{countries.first.subregion}</td>
-        </tr>
-      </table>
-      </>}
-
+      <button onClick={() => getCountryData("japan", "thailand")} type="button">Compare!</button>
+    {countries && <CountryDataDisplay countries={countries} />}
     </div>
   );
 }

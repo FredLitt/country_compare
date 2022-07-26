@@ -1,0 +1,7 @@
+- Add map showing both countries
+- Units and converter for area
+- Population density
+- Comparison stat of populations and area (country A has 22% the population of country B...)
+- Display weather of capital
+- Random countries are displayed upon load, add a random comparison button
+- Add a giphy gif for each country 
