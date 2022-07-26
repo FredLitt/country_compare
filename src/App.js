@@ -13,25 +13,37 @@ function App() {
     const firstCountryResponse = await axios.get(`https://restcountries.com/v3.1/name/${firstCountryName}`)
     const secondCountryResponse = await axios.get(`https://restcountries.com/v3.1/name/${secondCountryName}`)
     const firstCountry = firstCountryResponse.data[0]
+    console.log(firstCountry)
     const secondCountry = secondCountryResponse.data[0]
     setCountryData(firstCountry, secondCountry)
-    console.log(firstCountry)
-    setCountries({
-      name: firstCountry.name.common,
-
-      population: firstCountry.population,
-      flag: firstCountry.flags.svg,
-      language: Object.values(firstCountry.languages),
-      currency: firstCountry.currencies[Object.keys(firstCountry.currencies)].name,
-      capital: firstCountry.capital[0],
-      region: firstCountry.region,
-      subregion: firstCountry.subregion
-    })
-    console.log(countries)
   }
 
   const setCountryData = (firstCountry, secondCountry) => {
-
+    setCountries({
+      first: {
+        name: firstCountry.name.common,
+        population: firstCountry.population,
+        flag: firstCountry.flags.svg,
+        language: Object.values(firstCountry.languages),
+        area: firstCountry.area,
+        currency: firstCountry.currencies[Object.keys(firstCountry.currencies)].name,
+        capital: firstCountry.capital[0],
+        region: firstCountry.region,
+        subregion: firstCountry.subregion
+      },
+      second: {
+        name: secondCountry.name.common,
+        population: secondCountry.population,
+        flag: secondCountry.flags.svg,
+        language: Object.values(secondCountry.languages),
+        area: secondCountry.area,
+        currency: secondCountry.currencies[Object.keys(secondCountry.currencies)].name,
+        capital: secondCountry.capital[0],
+        region: secondCountry.region,
+        subregion: secondCountry.subregion
+      },
+    })
+    console.log(countries)
   }
 
   return (
@@ -44,26 +56,26 @@ function App() {
       </div>
     {countries &&
     <>
-      <h1>{countries.name}</h1>
-      <img src={countries.flag} alt="" />
+      <h1>{countries.first.name}</h1>
+      <img src={countries.first.flag} alt="" />
       <table>
         <tr>
-          <td>Population</td><td>{countries.population}</td>
+          <td>Population</td><td>{countries.first.population}</td>
         </tr>
         <tr>
-          <td>Language</td><td>{countries.language}</td>
+          <td>Language</td><td>{countries.first.language}</td>
         </tr>
         <tr>
-          <td>Currency</td><td>{countries.currency}</td>
+          <td>Currency</td><td>{countries.first.currency}</td>
         </tr>
         <tr>
-          <td>Capital</td><td>{countries.capital}</td>
+          <td>Capital</td><td>{countries.first.capital}</td>
         </tr>
         <tr>
-          <td>Region</td><td>{countries.region}</td>
+          <td>Region</td><td>{countries.first.region}</td>
         </tr>
         <tr>
-          <td>Subregion</td><td>{countries.subregion}</td>
+          <td>Subregion</td><td>{countries.first.subregion}</td>
         </tr>
       </table>
       </>}
