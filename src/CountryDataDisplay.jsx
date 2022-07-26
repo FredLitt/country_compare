@@ -1,18 +1,12 @@
-import React from 'react'
+import React from 'react';
+import CountryHeader from './CountryHeader';
 
-export default function CountryDataDisplay({countries}) {
+export default function CountryDataDisplay({ countries }) {
+  console.log(countries)
   return (
     <>
-      <>
-        <div className="name-flag-wrapper">
-          <h1 className="country-name">{countries.first.name}</h1>
-          <img src={countries.first.flag} alt="" />
-        </div>
-        <div className="name-flag-wrapper">
-          <h1 className="country-name">{countries.second.name}</h1>
-          <img src={countries.second.flag} alt="" />
-        </div>
-      </>
+      <CountryHeader country={countries.first} />
+      <CountryHeader country={countries.second} />
       <table id="countries">
         <tr>
           <td>Population</td><td>{countries.first.population}</td><td>{countries.second.population}</td>
