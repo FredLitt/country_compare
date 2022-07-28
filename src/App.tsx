@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CountryDataTable from './CountryDataTable';
 import CountryHeader from './CountryHeader';
+import CountryDataTable from './CountryDataTable';
 import axios, { AxiosResponse } from 'axios';
 import './App.css';
 
@@ -52,6 +52,9 @@ function App() {
   }
 
   const renderCountryData = async (firstCountryName: string, secondCountryName: string) => {
+    const missingCountryName = (firstCountryName === "" || secondCountryName === "")
+    const duplicateCountryName = (firstCountryName === secondCountryName)
+    if (missingCountryName || duplicateCountryName) return
     const firstCountryData = await getCountryData(firstCountryName)
     const secondCountryData = await getCountryData(secondCountryName)
     setCountryData(firstCountryData, secondCountryData)
