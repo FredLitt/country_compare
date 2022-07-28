@@ -1,36 +1,48 @@
 import React, { useState } from 'react';
 import CountryDataDisplay from './CountryDataDisplay';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import './App.css';
+
+interface CountryData {
+  name: string,
+  flag: string,
+  population: number,
+  //language: string,
+  area: number,
+  //currency: string,
+  capital: string,
+  region: string,
+  subregion: string
+}
 
 function App() {
 
-  const [ countries, setCountries ] = useState(null)
+  const [ countries, setCountries ] = useState<null | { first: CountryData, second: CountryData }>(null)
 
   const [ country, setFirstCountry ] = useState("japan")
   const [ secondCountry, setSecondCountry ] = useState("thailand")
 
-  const getCountryData = async (country) => {
-    const countryResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
+  const getCountryData = async (country: string) => {
+    const countryResponse: AxiosResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
     return countryResponse.data[0]
   }
 
-  const formatCountryData = (country) => {
+  const formatCountryData = (countryData: any): CountryData => {
     return {
-      name: country.name.common,
-      flag: country.flags.svg,
-      population: country.population,
-      language: Object.values(country.languages),
-      area: country.area,
-      currency: country.currencies[Object.keys(country.currencies)].name,
-      capital: country.capital[0],
-      region: country.region,
-      subregion: country.subregion
+      name: countryData.name.common,
+      flag: countryData.flags.svg,
+      population: countryData.population,
+      //language: Object.values(countryData.languages),
+      area: countryData.area,
+      //currency: country.currencies[Object.keys(country.currencies)].name,
+      capital: countryData.capital[0],
+      region: countryData.region,
+      subregion: countryData.subregion
     }
   }
 
-  const setCountryData = (firstCountry, secondCountry) => {
-    const firstCountryData = formatCountryData(firstCountry)
+  const setCountryData = (firstCountry: any, secondCountry: any) => {
+    const firstCountryData: CountryData = formatCountryData(firstCountry)
     const secondCountryData = formatCountryData(secondCountry)
     setCountries({
       first: firstCountryData,
@@ -39,10 +51,9 @@ function App() {
     console.log(countries)
   }
 
-  const renderCountryData = async (firstCountry, secondCountry) => {
-    console.log(firstCountry)
-    const a = await getCountryData(firstCountry)
-    const b = await getCountryData(secondCountry)
+  const renderCountryData = async (firstCountryName: string, secondCountryName: string) => {
+    const a = await getCountryData(firstCountryName)
+    const b = await getCountryData(secondCountryName)
     setCountryData(a, b)
   }
 
