@@ -7,7 +7,7 @@ interface CountryData {
   name: string,
   flag: string,
   population: number,
-  //language: string,
+  language: string,
   area: number,
   //currency: string,
   capital: string,
@@ -24,6 +24,7 @@ function App() {
 
   const getCountryData = async (country: string) => {
     const countryResponse: AxiosResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
+    console.log(countryResponse.data[0], countryResponse.data[0].languages)
     return countryResponse.data[0]
   }
 
@@ -32,7 +33,7 @@ function App() {
       name: countryData.name.common,
       flag: countryData.flags.svg,
       population: countryData.population,
-      //language: Object.values(countryData.languages),
+      language: countryData.languages[Object.keys(countryData.languages)[0]],
       area: countryData.area,
       //currency: country.currencies[Object.keys(country.currencies)].name,
       capital: countryData.capital[0],
@@ -41,20 +42,18 @@ function App() {
     }
   }
 
-  const setCountryData = (firstCountry: any, secondCountry: any) => {
-    const firstCountryData: CountryData = formatCountryData(firstCountry)
-    const secondCountryData = formatCountryData(secondCountry)
+  const setCountryData = (firstCountryData: any, secondCountryData: any) => {
     setCountries({
-      first: firstCountryData,
-      second: secondCountryData,
+      first: formatCountryData(firstCountryData),
+      second: formatCountryData(secondCountryData),
     })
     console.log(countries)
   }
 
   const renderCountryData = async (firstCountryName: string, secondCountryName: string) => {
-    const a = await getCountryData(firstCountryName)
-    const b = await getCountryData(secondCountryName)
-    setCountryData(a, b)
+    const firstCountryData = await getCountryData(firstCountryName)
+    const secondCountryData = await getCountryData(secondCountryName)
+    setCountryData(firstCountryData, secondCountryData)
   }
 
   const renderRandomCountryData = () => {}
