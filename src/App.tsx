@@ -7,39 +7,34 @@ function App() {
 
   const [ countries, setCountries ] = useState(null)
 
-  const [ firstCountry, setFirstCountry ] = useState("japan")
+  const [ country, setFirstCountry ] = useState("japan")
   const [ secondCountry, setSecondCountry ] = useState("thailand")
 
   const getCountryData = async (country) => {
     const countryResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
-    console.log(countryResponse)
     return countryResponse.data[0]
   }
 
+  const formatCountryData = (country) => {
+    return {
+      name: country.name.common,
+      flag: country.flags.svg,
+      population: country.population,
+      language: Object.values(country.languages),
+      area: country.area,
+      currency: country.currencies[Object.keys(country.currencies)].name,
+      capital: country.capital[0],
+      region: country.region,
+      subregion: country.subregion
+    }
+  }
+
   const setCountryData = (firstCountry, secondCountry) => {
+    const firstCountryData = formatCountryData(firstCountry)
+    const secondCountryData = formatCountryData(secondCountry)
     setCountries({
-      first: {
-        name: firstCountry.name.common,
-        population: firstCountry.population,
-        flag: firstCountry.flags.svg,
-        language: Object.values(firstCountry.languages),
-        area: firstCountry.area,
-        currency: firstCountry.currencies[Object.keys(firstCountry.currencies)].name,
-        capital: firstCountry.capital[0],
-        region: firstCountry.region,
-        subregion: firstCountry.subregion
-      },
-      second: {
-        name: secondCountry.name.common,
-        population: secondCountry.population,
-        flag: secondCountry.flags.svg,
-        language: Object.values(secondCountry.languages),
-        area: secondCountry.area,
-        currency: secondCountry.currencies[Object.keys(secondCountry.currencies)].name,
-        capital: secondCountry.capital[0],
-        region: secondCountry.region,
-        subregion: secondCountry.subregion
-      },
+      first: firstCountryData,
+      second: secondCountryData,
     })
     console.log(countries)
   }
@@ -55,16 +50,16 @@ function App() {
 
   return (
     <div className="App">
-        <h1 id="app-header">Compare Two Countries</h1>
+        <h1 id="app-header">Enter the Names of Two Countries</h1>
         <input 
           placeholder="Enter first country's name" 
-          value={firstCountry} 
+          value={country} 
           onChange={(e) => setFirstCountry(e.target.value)} type="text" />
         <input 
           placeholder="Enter second country's name" 
           value={secondCountry} 
           onChange={(e) => setSecondCountry(e.target.value)} type="text" />
-      <button onClick={() => renderCountryData(firstCountry, secondCountry)} type="button">Compare!</button>
+      <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
       <button onClick={renderRandomCountryData}>Compare random</button>
     {countries && <CountryDataDisplay countries={countries} />}
     </div>
