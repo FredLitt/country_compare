@@ -5,3 +5,4 @@
 - Display weather of capital
 - Random countries are displayed upon load, add a random comparison button
 - Add a giphy gif for each country 
+- Add distance between countries
