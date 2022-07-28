@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import CountryDataDisplay from './CountryDataDisplay';
+import CountryDataTable from './CountryDataTable';
+import CountryHeader from './CountryHeader';
 import axios, { AxiosResponse } from 'axios';
 import './App.css';
 
@@ -71,7 +72,14 @@ function App() {
           onChange={(e) => setSecondCountry(e.target.value)} type="text" />
       <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
       <button onClick={renderRandomCountryData}>Compare random</button>
-    {countries && <CountryDataDisplay countries={countries} />}
+    {countries && 
+      <>
+        <div id="country-header-wrapper">
+          <CountryHeader country={countries.first} />
+          <CountryHeader country={countries.second} />
+        </div>
+        <CountryDataTable countries={countries} />
+      </>}
     </div>
   );
 }

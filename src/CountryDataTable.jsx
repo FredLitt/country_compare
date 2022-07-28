@@ -1,14 +1,11 @@
 import React from 'react';
 import CountryHeader from './CountryHeader';
 
-export default function CountryDataDisplay({ countries }) {
+export default function CountryDataTable({ countries }) {
   console.log(countries)
   return (
     <>
-      <div id="country-header-wrapper">
-        <CountryHeader country={countries.first} />
-        <CountryHeader country={countries.second} />
-      </div>
+      
       <table id="countries">
         <tbody>
         <tr>
