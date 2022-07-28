@@ -9,7 +9,7 @@ interface CountryData {
   population: number,
   language: string,
   area: number,
-  //currency: string,
+  currency: string,
   capital: string,
   region: string,
   subregion: string
@@ -24,7 +24,7 @@ function App() {
 
   const getCountryData = async (country: string) => {
     const countryResponse: AxiosResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
-    console.log(countryResponse.data[0], countryResponse.data[0].languages)
+    console.log(countryResponse.data[0], countryResponse.data[0].currencies)
     return countryResponse.data[0]
   }
 
@@ -35,7 +35,7 @@ function App() {
       population: countryData.population,
       language: countryData.languages[Object.keys(countryData.languages)[0]],
       area: countryData.area,
-      //currency: country.currencies[Object.keys(country.currencies)].name,
+      currency: countryData.currencies[Object.keys(countryData.currencies)[0]].name,
       capital: countryData.capital[0],
       region: countryData.region,
       subregion: countryData.subregion
