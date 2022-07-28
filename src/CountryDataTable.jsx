@@ -4,6 +4,11 @@ export default function CountryDataTable({ countries }) {
   console.log(countries)
   return (
     <>      
+      <table>
+        <tbody>
+          {}
+        </tbody>
+      </table>
       <table id="country-data-table">
         <tbody>
           <tr>

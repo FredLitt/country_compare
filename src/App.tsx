@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CountryHeader from './CountryHeader';
 import CountryDataTable from './CountryDataTable';
 import axios, { AxiosResponse } from 'axios';
 import './App.css';
@@ -53,14 +52,19 @@ function App() {
 
   const renderCountryData = async (firstCountryName: string, secondCountryName: string) => {
     const missingCountryName = (firstCountryName === "" || secondCountryName === "")
-    const duplicateCountryName = (firstCountryName === secondCountryName)
-    if (missingCountryName || duplicateCountryName) return
+    const sameCountry = (firstCountryName === secondCountryName)
+    if (missingCountryName || sameCountry) return
     const firstCountryData = await getCountryData(firstCountryName)
     const secondCountryData = await getCountryData(secondCountryName)
     setCountryData(firstCountryData, secondCountryData)
   }
 
-  const renderRandomCountryData = () => {}
+  const pickRandomCountry = async () => {
+    const allCountries = await axios.get("https://restcountries.com/v3.1/all")
+    const randomIndex = Math.floor(Math.random() * allCountries.data.length)
+    const randomCountryName: string = allCountries.data[randomIndex].name.common
+    return randomCountryName
+  }
 
   return (
     <div className="App">
@@ -74,13 +78,9 @@ function App() {
           value={secondCountry} 
           onChange={(e) => setSecondCountry(e.target.value)} type="text" />
       <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
-      <button onClick={renderRandomCountryData}>Compare random</button>
+      <button onClick={() => pickRandomCountry()}>Compare random</button>
     {countries && 
       <>
-        <div id="country-header-wrapper">
-          <CountryHeader country={countries.first} />
-          <CountryHeader country={countries.second} />
-        </div>
         <CountryDataTable countries={countries} />
       </>}
     </div>
