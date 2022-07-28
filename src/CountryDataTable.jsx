@@ -1,13 +1,17 @@
 import React from 'react';
-import CountryHeader from './CountryHeader';
 
 export default function CountryDataTable({ countries }) {
   console.log(countries)
   return (
-    <>
-      
-      <table id="countries">
+    <>      
+      <table id="country-data-table">
         <tbody>
+          <tr>
+            <td></td><td>{countries.first.name}</td><td>{countries.second.name}</td>
+          </tr>
+          <tr>
+            <td></td><td><img src={countries.first.flag} alt="" /></td><td><img src={countries.second.flag} alt="" /></td>
+          </tr>
         <tr>
           <td>Population</td><td>{countries.first.population}</td><td>{countries.second.population}</td>
         </tr>
