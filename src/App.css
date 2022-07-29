@@ -25,7 +25,7 @@ img {
 }
 
 #country-data-table {
-  background-color: white;
+  background-color: hsl(40, 24%, 88%);
   margin: auto 5vw auto;
   width: 90vw;
   font-size: 1.5em;
@@ -33,10 +33,15 @@ img {
 }
 
 #country-data-table tr:nth-child(odd){
-  background-color: lightgrey;
+  background-color: hsl(226, 68%, 85%);
 }
 
 #country-data-table td {
   border: 0.1vw solid black;
-  padding: 1vw;
+  padding: .5vw;
+  text-align: center;
+}
+
+tr:first-child {
+  font-weight: bold;
 }

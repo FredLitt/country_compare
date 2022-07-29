@@ -80,6 +80,12 @@ function App() {
     return randomCountryName
   }
 
+  const renderRandomCountryData = async () => {
+    const firstRandomCountryName = await pickRandomCountry()
+    const secondRandomCountrName = await pickRandomCountry()
+    renderCountryData(firstRandomCountryName, secondRandomCountrName)
+  }
+
   return (
     <div className="App">
         <h1 id="app-header">Enter the Names of Two Countries</h1>
@@ -92,7 +98,7 @@ function App() {
           value={secondCountry} 
           onChange={(e) => setSecondCountry(e.target.value)} type="text" />
       <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
-      <button onClick={() => pickRandomCountry()}>Compare random</button>
+      <button onClick={renderRandomCountryData}>Compare random</button>
     {countryData && 
       <>
         <CountryDataTable countryData={countryData} />
