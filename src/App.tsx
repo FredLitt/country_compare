@@ -1,26 +1,9 @@
 import React, { useState } from 'react';
+import CountryInput from './CountryInput';
+import { CountryData, Datapoint } from './types'
 import CountryDataTable from './CountryDataTable';
 import axios, { AxiosResponse } from 'axios';
 import './App.css';
-import { stringify } from 'querystring';
-
-interface CountryData {
-  country: string,
-  flag: string,
-  population: string,
-  language: string,
-  area: string,
-  currency: string,
-  capital: string,
-  region: string,
-  subregion: string
-}
-
-interface Datapoint {
-  key: string,
-  firstCountry: string,
-  secondCountry: string 
-}
 
 function App() {
 
@@ -73,7 +56,7 @@ function App() {
     setCountryData(countryDataArray)
   }
 
-  const pickRandomCountry = async () => {
+  const getRandomCountry = async () => {
     const allCountries = await axios.get("https://restcountries.com/v3.1/all")
     const randomIndex = Math.floor(Math.random() * allCountries.data.length)
     const randomCountryName: string = allCountries.data[randomIndex].name.common
@@ -81,29 +64,21 @@ function App() {
   }
 
   const renderRandomCountryData = async () => {
-    const firstRandomCountryName = await pickRandomCountry()
-    const secondRandomCountrName = await pickRandomCountry()
+    const firstRandomCountryName = await getRandomCountry()
+    const secondRandomCountrName = await getRandomCountry()
     renderCountryData(firstRandomCountryName, secondRandomCountrName)
     setCountries({ first: "", second: "" })
   }
 
   return (
     <div className="App">
-        <h1 id="app-header">Enter the Names of Two Countries</h1>
-        <input 
-          placeholder="Enter first country's name" 
-          value={countries.first} 
-          onChange={(e) => setCountries({...countries, first: e.target.value})} type="text" />
-        <input 
-          placeholder="Enter second country's name" 
-          value={countries.second} 
-          onChange={(e) => setCountries({...countries, second: e.target.value})} type="text" />
+      <h1 id="app-header">Enter the Names of Two Countries</h1>
+      <CountryInput number="first" value={countries.first} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, first: e.target.value})} />
+      <CountryInput number="second" value={countries.second} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, second: e.target.value})} />
+      
       <button onClick={() => renderCountryData(countries.first, countries.second)} type="button">Compare!</button>
       <button onClick={renderRandomCountryData}>Compare random</button>
-    {countryData && 
-      <>
-        <CountryDataTable countryData={countryData} />
-      </>}
+      <CountryDataTable countryData={countryData} />
     </div>
   );
 }
