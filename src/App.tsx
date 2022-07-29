@@ -4,20 +4,26 @@ import axios, { AxiosResponse } from 'axios';
 import './App.css';
 
 interface CountryData {
-  name: string,
+  country: string,
   flag: string,
-  population: number,
+  population: string,
   language: string,
-  area: number,
+  area: string,
   currency: string,
   capital: string,
   region: string,
   subregion: string
 }
 
+interface Datapoint {
+  key: string,
+  firstCountry: string,
+  secondCountry: string 
+}
+
 function App() {
 
-  const [ countries, setCountries ] = useState<null | { first: CountryData, second: CountryData }>(null)
+  const [ countryData, setCountryData ] = useState<Datapoint[] | []>([])
 
   const [ country, setFirstCountry ] = useState("japan")
   const [ secondCountry, setSecondCountry ] = useState("thailand")
@@ -30,7 +36,7 @@ function App() {
 
   const formatCountryData = (countryData: any): CountryData => {
     return {
-      name: countryData.name.common,
+      country: countryData.name.common,
       flag: countryData.flags.svg,
       population: countryData.population,
       language: countryData.languages[Object.keys(countryData.languages)[0]],
@@ -42,12 +48,19 @@ function App() {
     }
   }
 
-  const setCountryData = (firstCountryData: any, secondCountryData: any) => {
-    setCountries({
-      first: formatCountryData(firstCountryData),
-      second: formatCountryData(secondCountryData),
-    })
-    console.log(countries)
+  const createCountryDataArray = (firstCountryData: CountryData, secondCountryData: CountryData) : Datapoint[] => {
+    const countryDataArray = []
+    const dataKeys = Object.keys(firstCountryData)
+    for (let i = 0; i < dataKeys.length; i++){
+      const keyName = dataKeys[i].charAt(0).toUpperCase() + dataKeys[i].slice(1)
+      const datapoint : Datapoint = {
+        key: keyName,
+        firstCountry: Object.values(firstCountryData)[i],
+        secondCountry: Object.values(secondCountryData)[i]
+      }
+      countryDataArray.push(datapoint)
+    }
+    return countryDataArray
   }
 
   const renderCountryData = async (firstCountryName: string, secondCountryName: string) => {
@@ -56,7 +69,8 @@ function App() {
     if (missingCountryName || sameCountry) return
     const firstCountryData = await getCountryData(firstCountryName)
     const secondCountryData = await getCountryData(secondCountryName)
-    setCountryData(firstCountryData, secondCountryData)
+    const countryDataArray = createCountryDataArray(formatCountryData(firstCountryData),formatCountryData( secondCountryData))
+    setCountryData(countryDataArray)
   }
 
   const pickRandomCountry = async () => {
@@ -79,9 +93,9 @@ function App() {
           onChange={(e) => setSecondCountry(e.target.value)} type="text" />
       <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
       <button onClick={() => pickRandomCountry()}>Compare random</button>
-    {countries && 
+    {countryData && 
       <>
-        <CountryDataTable countries={countries} />
+        <CountryDataTable countryData={countryData} />
       </>}
     </div>
   );
