@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CountryDataTable from './CountryDataTable';
 import axios, { AxiosResponse } from 'axios';
 import './App.css';
+import { stringify } from 'querystring';
 
 interface CountryData {
   country: string,
@@ -25,8 +26,7 @@ function App() {
 
   const [ countryData, setCountryData ] = useState<Datapoint[] | []>([])
 
-  const [ country, setFirstCountry ] = useState("japan")
-  const [ secondCountry, setSecondCountry ] = useState("thailand")
+  const [ countries, setCountries ] = useState( { first: "japan", second: "turkey"} )
 
   const getCountryData = async (country: string) => {
     const countryResponse: AxiosResponse = await axios.get(`https://restcountries.com/v3.1/name/${country}`)
@@ -84,6 +84,7 @@ function App() {
     const firstRandomCountryName = await pickRandomCountry()
     const secondRandomCountrName = await pickRandomCountry()
     renderCountryData(firstRandomCountryName, secondRandomCountrName)
+    setCountries({ first: "", second: "" })
   }
 
   return (
@@ -91,13 +92,13 @@ function App() {
         <h1 id="app-header">Enter the Names of Two Countries</h1>
         <input 
           placeholder="Enter first country's name" 
-          value={country} 
-          onChange={(e) => setFirstCountry(e.target.value)} type="text" />
+          value={countries.first} 
+          onChange={(e) => setCountries({...countries, first: e.target.value})} type="text" />
         <input 
           placeholder="Enter second country's name" 
-          value={secondCountry} 
-          onChange={(e) => setSecondCountry(e.target.value)} type="text" />
-      <button onClick={() => renderCountryData(country, secondCountry)} type="button">Compare!</button>
+          value={countries.second} 
+          onChange={(e) => setCountries({...countries, second: e.target.value})} type="text" />
+      <button onClick={() => renderCountryData(countries.first, countries.second)} type="button">Compare!</button>
       <button onClick={renderRandomCountryData}>Compare random</button>
     {countryData && 
       <>
