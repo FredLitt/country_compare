@@ -3,7 +3,7 @@
 }
 
 html {
-  background-color: aliceblue;
+  background-color: hsl(0, 17%, 83%);
 }
 
 #country-header-wrapper {
@@ -25,7 +25,7 @@ img {
 }
 
 #country-data-table {
-  background-color: hsl(40, 24%, 88%);
+  background-color: hsl(42, 23%, 91%);
   margin: auto 5vw auto;
   width: 90vw;
   font-size: 1.5em;
@@ -33,7 +33,7 @@ img {
 }
 
 #country-data-table tr:nth-child(odd){
-  background-color: hsl(226, 68%, 85%);
+  background-color: hsl(155, 56%, 85%);
 }
 
 #country-data-table td {
@@ -42,6 +42,6 @@ img {
   text-align: center;
 }
 
-tr:first-child {
-  font-weight: bold;
+tr > td:first-child {
+  font-weight: 500;
 }
