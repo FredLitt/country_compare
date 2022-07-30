@@ -31,12 +31,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1 id="app-header">Enter the Names of Two Countries</h1>
-      <CountryInput number="first" value={countries.first} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, first: e.target.value})} />
-      <CountryInput number="second" value={countries.second} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, second: e.target.value})} />
-      
-      <button onClick={() => renderCountryData(countries.first, countries.second)} type="button">Compare!</button>
-      <button onClick={renderRandomCountryData}>Compare random</button>
+      <section id="search-wrapper">
+        <h1 id="app-header">Enter the Names of Two Countries</h1>
+        <CountryInput number="first" value={countries.first} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, first: e.target.value})} />
+        <CountryInput number="second" value={countries.second} countries={countries} setInput={(e: React.ChangeEvent<HTMLInputElement>) => setCountries({...countries, second: e.target.value})} />
+        <button className="compare-btn" onClick={() => renderCountryData(countries.first, countries.second)} type="button">Compare!</button>
+        <button className="compare-btn" onClick={renderRandomCountryData}>Compare random</button>
+      </section>
       <CountryDataTable countryData={countryData} />
     </div>
   );

@@ -1,9 +1,15 @@
 .App {
   text-align: center;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-html {
-  background-color: hsl(181, 66%, 84%);
+#search-wrapper {
+  margin: 20px auto;
+  font-size: 1.25rem;
+  padding: 1em;
+  background-color: rgb(223, 241, 247);
+  border: 0.01vw solid rgb(158, 189, 230);
+  width: 50%;
 }
 
 #country-header-wrapper {
@@ -24,22 +30,41 @@ img {
   width: 9rem;
 }
 
+.country-name-input {
+  height: 2rem;
+  border: 1px solid grey;
+  padding-left: 0.5em;
+  border-radius: 2px;
+  margin: .5em;
+}
+
+.compare-btn {
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgb(84, 157, 199);
+  height: 2rem;
+  width: 8rem;
+  margin: .5em;
+  border: none;
+}
+
 #country-data-table {
-  background-color: hsl(42, 23%, 91%);
+  color: rgb(52, 58, 65);
+  background-color: rgb(223, 241, 247);
   margin: auto 5vw auto;
   width: 90vw;
   font-size: 1.5em;
   text-align: left;
 }
 
-#country-data-table tr:nth-child(odd){
-  background-color: hsl(155, 56%, 85%);
+#country-data-table td {
+  border: 0.01vw solid rgb(158, 189, 230);
+  padding: .5vw;
 }
 
-#country-data-table td {
-  border: 0.1vw solid black;
-  padding: .5vw;
-  text-align: center;
+tr:first-child {
+  font-weight: 500;
 }
 
 tr > td:first-child {
