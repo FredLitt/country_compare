@@ -1,14 +1,25 @@
+
+:root {
+  --light-blue: rgb(223, 241, 247);
+  --blue: rgb(158, 189, 230);
+  --dark-blue: rgb(84, 157, 199);
+  --font-color: rgb(26, 49, 75);
+}
+
 .App {
-  text-align: center;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
 }
 
 #search-wrapper {
-  margin: 20px auto;
+  color: var(--font-color);
+  text-align: center;
+  margin: 1em auto;
   font-size: 1.25rem;
   padding: 1em;
-  background-color: rgb(223, 241, 247);
-  border: 0.01vw solid rgb(158, 189, 230);
+  background-color: var(--light-blue);
+  border: 0.01vw solid var(--blue);
+  border-radius: 5px;
   width: 50%;
 }
 
@@ -32,17 +43,21 @@ img {
 
 .country-name-input {
   height: 2rem;
-  border: 1px solid grey;
+  border: 1px solid var(--blue);
   padding-left: 0.5em;
   border-radius: 2px;
   margin: .5em;
+}
+
+.country-name-input:focus {
+  border: 1px solid var(--dark-blue);
 }
 
 .compare-btn {
   color: white;
   cursor: pointer;
   border-radius: 5px;
-  background-color: rgb(84, 157, 199);
+  background-color: var(--dark-blue);
   height: 2rem;
   width: 8rem;
   margin: .5em;
@@ -50,8 +65,9 @@ img {
 }
 
 #country-data-table {
-  color: rgb(52, 58, 65);
-  background-color: rgb(223, 241, 247);
+  color: var(--font-color);
+  border-collapse: collapse; 
+  background-color: var(--light-blue);
   margin: auto 5vw auto;
   width: 90vw;
   font-size: 1.5em;
@@ -59,8 +75,8 @@ img {
 }
 
 #country-data-table td {
-  border: 0.01vw solid rgb(158, 189, 230);
-  padding: .5vw;
+  border: 0.01vw solid var(--dark-blue);
+  padding: .5vw 1vw;
 }
 
 tr:first-child {
