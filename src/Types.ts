@@ -2,7 +2,7 @@ interface CountryData {
     country: string,
     flag: string,
     population: string,
-    language: string,
+    languages: string,
     area: string,
     currency: string,
     capital: string,

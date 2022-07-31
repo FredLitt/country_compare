@@ -1,4 +1,12 @@
+import { LanguageServiceMode } from 'typescript'
 import { Datapoint } from './types'
+
+const addSpacesToLanguages = (languages: string) => {
+  if (languages.includes(",")){
+    languages = languages.replace(/,/g, ', ')
+  }
+  return languages
+}
 
 export const renderData = (data: Datapoint) => {
     if (data.key === "Flag"){
@@ -16,7 +24,15 @@ export const renderData = (data: Datapoint) => {
           <td>{data.secondCountry.toLocaleString()}</td>
         </>
       )
-    } 
+    }
+    if (data.key === "Languages"){
+      return (
+        <>
+          <td>{addSpacesToLanguages(data.firstCountry)}</td>
+          <td>{addSpacesToLanguages(data.secondCountry)}</td>
+        </>
+      )
+    }
     if (data.key === "Area"){
       return (
         <>

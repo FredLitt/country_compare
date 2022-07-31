@@ -12,7 +12,7 @@ const formatCountryData = (countryData: any): CountryData => {
         country: countryData.name.common,
         flag: countryData.flags.svg,
         population: countryData.population,
-        language: countryData.languages[Object.keys(countryData.languages)[0]],
+        languages: Object.values(countryData.languages).toString(),//countryData.languages[Object.keys(countryData.languages)[0]],
         area: countryData.area,
         currency: countryData.currencies[Object.keys(countryData.currencies)[0]].name,
         capital: countryData.capital[0],
@@ -29,11 +29,10 @@ const createCountryDataArray = (firstCountryData: CountryData, secondCountryData
         const datapoint : Datapoint = {
         key: keyName,
         firstCountry: Object.values(firstCountryData)[i],
-        secondCountry: Object.values(secondCountryData)[i]
-        }
+        secondCountry: Object.values(secondCountryData)[i]}
         countryDataArray.push(datapoint)
-    }
-    return countryDataArray
+}
+return countryDataArray
 }
 
 const getRandomCountry = async () => {

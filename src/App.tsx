@@ -3,6 +3,7 @@ import { getCountryData, formatCountryData, createCountryDataArray, getRandomCou
 import CountryInput from './CountryInput';
 import { Datapoint } from './types'
 import CountryDataTable from './CountryDataTable';
+import ComparisonTable from './ComparisonTable';
 import './App.css';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <button className="compare-btn" onClick={renderRandomCountryData}>Compare random</button>
       </section>
       <CountryDataTable countryData={countryData} />
+      <ComparisonTable countryData={countryData} />
     </div>
   );
 }
