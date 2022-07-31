@@ -9,7 +9,7 @@ import CountryInput from "./CountryInput";
 import { CountryData, Datapoint } from "./types";
 import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import Map from "./Map";
 import "./App.css";
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
 
   const firstCountryLatLong = rawCountryData[0]?.latlng;
   const secondCountryLatLong = rawCountryData[1]?.latlng;
-  console.log(rawCountryData);
+
   return (
     <div className="App">
       <section id="search-wrapper">
@@ -85,27 +85,14 @@ function App() {
       </section>
       <CountryDataTable countryData={countryData} />
       <ComparisonTable countryData={countryData} />
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={2.45}
-        scrollWheelZoom={false}
-        style={{ height: "500px" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+      {rawCountryData.length !== 0 && (
+        <Map
+          firstCountryLatLong={firstCountryLatLong}
+          secondCountryLatLong={secondCountryLatLong}
+          rawCountryData={rawCountryData}
         />
-        {firstCountryLatLong && (
-          <Marker position={firstCountryLatLong}>
-            <Popup> {rawCountryData[0].country}</Popup>
-          </Marker>
-        )}
-        {secondCountryLatLong && (
-          <Marker position={secondCountryLatLong}>
-            <Popup>{rawCountryData[1].country}</Popup>
-          </Marker>
-        )}
-      </MapContainer>
+      )}
     </div>
   );
 }
