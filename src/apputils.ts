@@ -12,7 +12,7 @@ const formatCountryData = (countryData: any): CountryData => {
         country: countryData.name.common,
         flag: countryData.flags.svg,
         population: countryData.population,
-        languages: Object.values(countryData.languages).toString(),//countryData.languages[Object.keys(countryData.languages)[0]],
+        languages: Object.values(countryData.languages).toString(),
         area: countryData.area,
         currency: countryData.currencies[Object.keys(countryData.currencies)[0]].name,
         capital: countryData.capital[0],
