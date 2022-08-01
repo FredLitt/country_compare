@@ -19,12 +19,16 @@ export default function Map({
       />
       {firstCountryLatLong && (
         <Marker position={firstCountryLatLong}>
-          <Popup> {rawCountryData[0].country}</Popup>
+          <Popup>
+            {rawCountryData[0].capital[0]}, {rawCountryData[0].country}
+          </Popup>
         </Marker>
       )}
       {secondCountryLatLong && (
         <Marker position={secondCountryLatLong}>
-          <Popup>{rawCountryData[1].country}</Popup>
+          <Popup>
+            {rawCountryData[1].capital[0]}, {rawCountryData[1].country}
+          </Popup>
         </Marker>
       )}
     </MapContainer>

@@ -13,8 +13,11 @@ const formatCountryData = (countryData: any): CountryData => {
   return {
     country: countryData.name.common,
     flag: countryData.flags.svg,
-    population: countryData.population,
     languages: Object.values(countryData.languages).toString(),
+    population: countryData.population,
+    population_density: Math.round(
+      parseInt(countryData.population) / parseInt(countryData.area)
+    ),
     area: countryData.area,
     currency:
       countryData.currencies[Object.keys(countryData.currencies)[0]].name,

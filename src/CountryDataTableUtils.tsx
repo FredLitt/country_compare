@@ -1,11 +1,10 @@
-import { LanguageServiceMode } from "typescript";
 import { Datapoint } from "./types";
 
 const addSpacesToLanguages = (languages: string) => {
   return languages.replace(/,/g, ", ");
 };
 
-export const renderData = (data: Datapoint) => {
+export const formatData = (data: Datapoint) => {
   if (data.key === "Flag") {
     return (
       <>
