@@ -3,7 +3,7 @@ import { CountryData, Datapoint } from "./types";
 
 const getCountryData = async (country: string) => {
   const countryResponse: AxiosResponse = await axios.get(
-    `https://restcountries.com/v3.1/name/${country}`
+    `https://restcountries.com/v3.1/name/${country}?fullText=true`
   );
   console.log(countryResponse.data[0], countryResponse.data[0].currencies);
   return countryResponse.data[0];
@@ -18,7 +18,7 @@ const formatCountryData = (countryData: any): CountryData => {
     area: countryData.area,
     currency:
       countryData.currencies[Object.keys(countryData.currencies)[0]].name,
-    capital: countryData.capital[0],
+    capital: countryData.capital,
     region: countryData.region,
     subregion: countryData.subregion,
     latlng: countryData.capitalInfo.latlng,

@@ -6,7 +6,7 @@ import {
   getRandomCountry,
 } from "./apputils";
 import CountryInput from "./CountryInput";
-import { CountryData, Datapoint } from "./types";
+import { CountryData } from "./types";
 import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
 import Map from "./Map";
@@ -14,10 +14,12 @@ import "./App.css";
 
 function App() {
   const [rawCountryData, setRawCountryData] = useState<CountryData[] | []>([]);
+
   const countryData =
     rawCountryData.length === 0
       ? []
       : createCountryDataArray(rawCountryData[0], rawCountryData[1]);
+
   const [countries, setCountries] = useState({
     first: "japan",
     second: "turkey",
