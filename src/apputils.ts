@@ -15,12 +15,13 @@ const formatCountryData = (countryData: any): CountryData => {
     flag: countryData.flags.svg,
     languages: Object.values(countryData.languages).toString(),
     population: countryData.population,
+    area: countryData.area,
     population_density: Math.round(
       parseInt(countryData.population) / parseInt(countryData.area)
     ),
-    area: countryData.area,
-    currency:
-      countryData.currencies[Object.keys(countryData.currencies)[0]].name,
+    currency: countryData.currencies
+      ? countryData.currencies[Object.keys(countryData.currencies)[0]].name
+      : "",
     capital: countryData.capital,
     region: countryData.region,
     subregion: countryData.subregion,
@@ -35,7 +36,9 @@ const createCountryDataArray = (
   const countryDataArray = [];
   const dataKeys = Object.keys(firstCountryData);
   for (let i = 0; i < dataKeys.length; i++) {
-    const keyName = dataKeys[i].charAt(0).toUpperCase() + dataKeys[i].slice(1);
+    const keyName = (
+      dataKeys[i].charAt(0).toUpperCase() + dataKeys[i].slice(1)
+    ).replace("_", " ");
     const datapoint: Datapoint = {
       key: keyName,
       firstCountry: Object.values(firstCountryData)[i],

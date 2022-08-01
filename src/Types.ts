@@ -3,8 +3,8 @@ interface CountryData {
   flag: string;
   languages: string;
   population: string;
-  population_density: number;
   area: string;
+  population_density: number;
   currency: string;
   capital: string;
   region: string;

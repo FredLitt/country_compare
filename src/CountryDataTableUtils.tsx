@@ -25,6 +25,18 @@ export const formatData = (data: Datapoint) => {
       </>
     );
   }
+  if (data.key === "Population density") {
+    return (
+      <>
+        <td>
+          {data.firstCountry.toLocaleString()} people / km<sup>2</sup>
+        </td>
+        <td>
+          {data.secondCountry.toLocaleString()} people / km<sup>2</sup>
+        </td>
+      </>
+    );
+  }
   if (data.key === "Languages") {
     return (
       <>
