@@ -11,14 +11,13 @@ import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
 import Map from "./Map";
 import "./App.css";
+import { AxiosResponse } from "axios";
 
 function App() {
   const [rawCountryData, setRawCountryData] = useState<CountryData[] | []>([]);
 
-  const countryData =
-    rawCountryData.length === 0
-      ? []
-      : createCountryDataArray(rawCountryData[0], rawCountryData[1]);
+  const countryDataArray =
+    rawCountryData.length === 0 ? [] : createCountryDataArray(rawCountryData);
 
   const [countries, setCountries] = useState({
     first: "japan",
@@ -33,10 +32,12 @@ function App() {
       firstCountryName === "" || secondCountryName === "";
     const sameCountry = firstCountryName === secondCountryName;
     if (missingCountryName || sameCountry) return;
-    const firstCountryData: unknown = (await getCountryData(
+    const firstCountryData: AxiosResponse = (await getCountryData(
       firstCountryName
-    )) as unknown;
-    const secondCountryData: unknown = await getCountryData(secondCountryName);
+    )) as AxiosResponse;
+    const secondCountryData: AxiosResponse = (await getCountryData(
+      secondCountryName
+    )) as AxiosResponse;
     setRawCountryData([
       formatCountryData(firstCountryData),
       formatCountryData(secondCountryData),
@@ -44,15 +45,15 @@ function App() {
     setCountries({ first: "", second: "" });
   };
 
-  const renderRandomCountryData = async () => {
+  const loadRandomCountryData = async () => {
     const firstRandomCountryName = await getRandomCountry();
     const secondRandomCountryName = await getRandomCountry();
     loadCountryData(firstRandomCountryName, secondRandomCountryName);
     setCountries({ first: "", second: "" });
   };
 
-  const firstCountryLatLong = rawCountryData[0]?.latlng;
-  const secondCountryLatLong = rawCountryData[1]?.latlng;
+  const firstCountry = rawCountryData[0];
+  const secondCountry = rawCountryData[1];
 
   return (
     <div className="App">
@@ -81,19 +82,23 @@ function App() {
         >
           Compare!
         </button>
-        <button className="compare-btn" onClick={renderRandomCountryData}>
+        <button className="compare-btn" onClick={loadRandomCountryData}>
           Compare random
         </button>
       </section>
-      <CountryDataTable countryData={countryData} />
-      <ComparisonTable countryData={countryData} />
-
       {rawCountryData.length !== 0 && (
-        <Map
-          firstCountryLatLong={firstCountryLatLong}
-          secondCountryLatLong={secondCountryLatLong}
-          rawCountryData={rawCountryData}
-        />
+        <>
+          <CountryDataTable countryDataArray={countryDataArray} />
+          <ComparisonTable
+            firstCountry={firstCountry}
+            secondCountry={secondCountry}
+          />
+          <Map
+            firstCountryLatLong={firstCountry.latlng}
+            secondCountryLatLong={secondCountry.latlng}
+            rawCountryData={rawCountryData}
+          />
+        </>
       )}
     </div>
   );

@@ -2,8 +2,8 @@ interface CountryData {
   country: string;
   flag: string;
   languages: string;
-  population: string;
-  area: string;
+  population: number;
+  area: number;
   population_density: number;
   currency: string;
   capital: string;
@@ -18,4 +18,6 @@ interface Datapoint {
   secondCountry: string;
 }
 
-export type { CountryData, Datapoint };
+type LatLong = [number, number];
+
+export type { CountryData, Datapoint, LatLong };

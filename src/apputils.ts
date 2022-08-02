@@ -25,14 +25,12 @@ const formatCountryData = (countryData: any): CountryData => {
     capital: countryData.capital,
     region: countryData.region,
     subregion: countryData.subregion,
-    latlng: countryData.capitalInfo.latlng,
+    latlng: countryData.latlng,
   };
 };
 
-const createCountryDataArray = (
-  firstCountryData: CountryData,
-  secondCountryData: CountryData
-): Datapoint[] => {
+const createCountryDataArray = (rawCountryData: CountryData[]): Datapoint[] => {
+  const [firstCountryData, secondCountryData] = rawCountryData;
   const countryDataArray = [];
   const dataKeys = Object.keys(firstCountryData);
   for (let i = 0; i < dataKeys.length; i++) {
