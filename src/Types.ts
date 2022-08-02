@@ -1,3 +1,7 @@
+import { AxiosResponse } from "axios";
+
+type CountryResponse = AxiosResponse | "error";
+
 interface CountryData {
   country: string;
   flag: string;
@@ -20,4 +24,4 @@ interface Datapoint {
 
 type LatLong = [number, number];
 
-export type { CountryData, Datapoint, LatLong };
+export type { CountryResponse, CountryData, Datapoint, LatLong };

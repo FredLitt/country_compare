@@ -65,7 +65,7 @@ export default function ComparisonTable({ firstCountry, secondCountry }: any) {
   };
 
   return (
-    <table>
+    <table id="comparison-table">
       <tbody>
         <tr>{compareCountryValues(populationOptions as ComparisonOption)}</tr>
         <tr>{compareCountryValues(areaOptions as ComparisonOption)}</tr>

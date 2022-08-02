@@ -6,15 +6,16 @@ import {
   getRandomCountry,
 } from "./apputils";
 import CountryInput from "./CountryInput";
-import { CountryData } from "./types";
+import { CountryData, CountryResponse } from "./types";
 import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
 import Map from "./Map";
 import "./App.css";
-import { AxiosResponse } from "axios";
 
 function App() {
   const [rawCountryData, setRawCountryData] = useState<CountryData[] | []>([]);
+  const [formValidationMessage, setFormValidationMessage] =
+    useState<string>("");
 
   const countryDataArray =
     rawCountryData.length === 0 ? [] : createCountryDataArray(rawCountryData);
@@ -31,18 +32,29 @@ function App() {
     const missingCountryName =
       firstCountryName === "" || secondCountryName === "";
     const sameCountry = firstCountryName === secondCountryName;
-    if (missingCountryName || sameCountry) return;
-    const firstCountryData: AxiosResponse = (await getCountryData(
+    if (missingCountryName)
+      return setFormValidationMessage("Please enter two country names.");
+    if (sameCountry)
+      return setFormValidationMessage(
+        "Please enter two different country names."
+      );
+    const firstCountryData: CountryResponse = await getCountryData(
       firstCountryName
-    )) as AxiosResponse;
-    const secondCountryData: AxiosResponse = (await getCountryData(
+    );
+    const secondCountryData: CountryResponse = await getCountryData(
       secondCountryName
-    )) as AxiosResponse;
+    );
+    const invalidResponse =
+      firstCountryData === "error" || secondCountryData === "error";
+    if (invalidResponse) {
+      setFormValidationMessage("Please enter valid country names.");
+    }
     setRawCountryData([
       formatCountryData(firstCountryData),
       formatCountryData(secondCountryData),
     ]);
     setCountries({ first: "", second: "" });
+    setFormValidationMessage("");
   };
 
   const loadRandomCountryData = async () => {
@@ -50,6 +62,7 @@ function App() {
     const secondRandomCountryName = await getRandomCountry();
     loadCountryData(firstRandomCountryName, secondRandomCountryName);
     setCountries({ first: "", second: "" });
+    setFormValidationMessage("");
   };
 
   const firstCountry = rawCountryData[0];
@@ -66,6 +79,7 @@ function App() {
           setInput={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCountries({ ...countries, first: e.target.value })
           }
+          loadCountryData={loadCountryData}
         />
         <CountryInput
           number="second"
@@ -74,6 +88,7 @@ function App() {
           setInput={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCountries({ ...countries, second: e.target.value })
           }
+          loadCountryData={loadCountryData}
         />
         <button
           className="compare-btn"
@@ -85,6 +100,7 @@ function App() {
         <button className="compare-btn" onClick={loadRandomCountryData}>
           Compare random
         </button>
+        {<>{formValidationMessage}</>}
       </section>
       {rawCountryData.length !== 0 && (
         <>

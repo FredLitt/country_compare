@@ -1,4 +1,3 @@
-
 :root {
   --light-blue: rgb(223, 241, 247);
   --blue: rgb(158, 189, 230);
@@ -7,7 +6,8 @@
 }
 
 .App {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 #search-wrapper {
@@ -45,7 +45,7 @@ img {
   border: 1px solid var(--blue);
   padding-left: 0.5em;
   border-radius: 2px;
-  margin: .5em;
+  margin: 0.5em;
 }
 
 .country-name-input:focus {
@@ -60,13 +60,14 @@ img {
   background-color: var(--dark-blue);
   height: 2rem;
   width: 8rem;
-  margin: .5em;
+  margin: 0.5em;
   border: none;
 }
 
-#country-data-table {
+#country-data-table,
+#comparison-table {
   color: var(--font-color);
-  border-collapse: collapse; 
+  border-collapse: collapse;
   border: 0.01vw solid var(--dark-blue);
   background-color: var(--light-blue);
   margin: 1vw auto;
@@ -75,12 +76,17 @@ img {
   text-align: left;
 }
 
-#country-data-table td {
+#comparison-table tr {
+  text-align: center;
   border: 0.01vw solid var(--dark-blue);
-  padding: .5vw 1vw;
 }
 
-tr:first-child {
+#country-data-table td {
+  border: 0.01vw solid var(--dark-blue);
+  padding: 0.5vw 1vw;
+}
+
+#country-data-table tr:first-child {
   font-weight: 500;
 }
 
@@ -88,9 +94,9 @@ tr > td:first-child {
   font-weight: 500;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   html {
-    font-size: .4em;
+    font-size: 0.4em;
   }
 
   #search-wrapper {
@@ -113,7 +119,7 @@ tr > td:first-child {
 
   #country-data-table {
     color: var(--font-color);
-    border-collapse: collapse; 
+    border-collapse: collapse;
     border: 0.01vw solid var(--dark-blue);
     background-color: var(--light-blue);
     width: 95vw;

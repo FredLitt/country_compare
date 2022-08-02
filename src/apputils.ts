@@ -2,11 +2,15 @@ import axios, { AxiosResponse } from "axios";
 import { CountryData, Datapoint } from "./types";
 
 const getCountryData = async (country: string) => {
-  const countryResponse: AxiosResponse = await axios.get(
-    `https://restcountries.com/v3.1/name/${country}?fullText=true`
-  );
-  console.log(countryResponse.data[0], countryResponse.data[0].currencies);
-  return countryResponse.data[0];
+  try {
+    const countryResponse: AxiosResponse = await axios.get(
+      `https://restcountries.com/v3.1/name/${country}?fullText=true`
+    );
+    console.log(countryResponse.data[0], countryResponse.data[0].currencies);
+    return countryResponse.data[0];
+  } catch (error) {
+    return "error";
+  }
 };
 
 const formatCountryData = (countryData: any): CountryData => {
