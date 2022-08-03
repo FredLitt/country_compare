@@ -6,7 +6,7 @@ import {
   getRandomCountry,
 } from "./apputils";
 import CountryInput from "./CountryInput";
-import type { CountryData, CountryResponse } from "./types";
+import type { CountryData, CountryResponse } from "./Types";
 import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
 import Map from "./Map";
