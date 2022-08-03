@@ -1,4 +1,4 @@
-import { Datapoint } from "./types";
+import type { Datapoint } from "./types";
 
 const addSpacesToLanguages = (languages: string) => {
   return languages.replace(/,/g, ", ");

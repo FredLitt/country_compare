@@ -1,5 +1,5 @@
 import React from "react";
-import { CountryData, LatLong } from "./types";
+import type { CountryData, LatLong } from "./types";
 
 export default function ComparisonTable({ firstCountry, secondCountry }: any) {
   interface ComparisonOption {

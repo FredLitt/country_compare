@@ -1,5 +1,5 @@
 import React from "react";
-import { Datapoint } from "./types";
+import type { Datapoint } from "./types";
 import { formatData } from "./CountryDataTableUtils";
 
 export default function CountryDataTable({ countryDataArray }: any) {
