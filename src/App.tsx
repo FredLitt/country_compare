@@ -72,6 +72,7 @@ function App() {
     <div className="App">
       <section id="search-wrapper">
         <h1 id="app-header">Enter the Names of Two Countries</h1>
+
         <CountryInput
           number="first"
           value={countries.first}
