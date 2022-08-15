@@ -1,6 +1,10 @@
 import React from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
+const getMapZoom = () => {
+  return window.matchMedia("(min-width: 600px)").matches ? 2.6 : 2.4;
+};
+
 export default function Map({
   firstCountryLatLong,
   secondCountryLatLong,
@@ -9,7 +13,7 @@ export default function Map({
   return (
     <MapContainer
       center={[51.505, -0.09]}
-      zoom={2.4}
+      zoom={getMapZoom()}
       scrollWheelZoom={false}
       style={{ height: "59vw", width: "95vw", margin: "auto" }}
     >
