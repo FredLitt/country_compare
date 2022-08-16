@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getCountryData,
   formatCountryData,
@@ -11,6 +11,7 @@ import CountryDataTable from "./CountryDataTable";
 import ComparisonTable from "./ComparisonTable";
 import Map from "./Map";
 import "./App.css";
+import axios, { AxiosResponse } from "axios";
 
 function App() {
   const [rawCountryData, setRawCountryData] = useState<CountryData[] | []>([]);
@@ -24,7 +25,7 @@ function App() {
     first: "",
     second: "",
   });
-
+  console.log(countries);
   const loadCountryData = async (
     firstCountryName: string,
     secondCountryName: string
@@ -68,39 +69,62 @@ function App() {
   const firstCountry = rawCountryData[0];
   const secondCountry = rawCountryData[1];
 
+  const [countryNames, setCountryNames] = useState<string[]>([]);
+
+  type CountryNameResponse = {
+    name: {
+      common: string;
+    };
+  };
+
+  useEffect(() => {
+    const getCountryNamesList = async () => {
+      const allCountries: AxiosResponse<CountryNameResponse[]> =
+        await axios.get("https://restcountries.com/v3.1/all");
+      const allCountryNames = allCountries.data.map(
+        (country) => country.name.common
+      );
+      setCountryNames(allCountryNames);
+    };
+    getCountryNamesList();
+  }, []);
+
   return (
     <div className="App">
       <section id="search-wrapper">
         <h1 id="app-header">Enter the Names of Two Countries</h1>
+        <div id="input-wrapper">
+          <CountryInput
+            countryNames={countryNames}
+            setCountry={(country: string) => {
+              console.log("country:", country, "countries:", countries);
+              setCountries({ ...countries, first: country });
+            }}
+            loadCountryData={() =>
+              loadCountryData(countries.first, countries.second)
+            }
+          />
+          <CountryInput
+            countryNames={countryNames}
+            setCountry={(country: string) =>
+              setCountries({ ...countries, second: country })
+            }
+            loadCountryData={() =>
+              loadCountryData(countries.first, countries.second)
+            }
+          />
 
-        <CountryInput
-          number="first"
-          value={countries.first}
-          countries={countries}
-          setInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCountries({ ...countries, first: e.target.value })
-          }
-          loadCountryData={loadCountryData}
-        />
-        <CountryInput
-          number="second"
-          value={countries.second}
-          countries={countries}
-          setInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCountries({ ...countries, second: e.target.value })
-          }
-          loadCountryData={loadCountryData}
-        />
-        <button
-          className="compare-btn"
-          onClick={() => loadCountryData(countries.first, countries.second)}
-          type="button"
-        >
-          Compare!
-        </button>
-        <button className="compare-btn" onClick={loadRandomCountryData}>
-          Compare random
-        </button>
+          <button
+            className="compare-btn"
+            onClick={() => loadCountryData(countries.first, countries.second)}
+            type="button"
+          >
+            Compare!
+          </button>
+          <button className="compare-btn" onClick={loadRandomCountryData}>
+            Compare random
+          </button>
+        </div>
         {<>{formValidationMessage}</>}
       </section>
       {rawCountryData.length !== 0 && (
