@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   getCountryData,
   formatCountryData,
@@ -103,6 +103,7 @@ function App() {
             loadCountryData={() =>
               loadCountryData(countries.first, countries.second)
             }
+            inputValue={countries.first}
           />
           <CountryInput
             countryNames={countryNames}
@@ -112,6 +113,7 @@ function App() {
             loadCountryData={() =>
               loadCountryData(countries.first, countries.second)
             }
+            inputValue={countries.second}
           />
 
           <button

@@ -2,15 +2,17 @@ import React from "react";
 import Downshift from "downshift";
 
 type CountryInputProps = {
-  countryNames: string[] | [];
+  countryNames: string[];
   setCountry: any;
   loadCountryData: any;
+  inputValue: string;
 };
 
 export default function CountryInput({
   countryNames,
   setCountry,
   loadCountryData,
+  inputValue,
 }: CountryInputProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") loadCountryData();
@@ -18,10 +20,10 @@ export default function CountryInput({
 
   return (
     <Downshift
-      itemToString={(item) => (item ? item : "")}
-      onChange={(item) => {
-        console.log(item);
-        setCountry(item);
+      itemToString={(country) => (country ? country : "")}
+      inputValue={inputValue}
+      onChange={(country) => {
+        setCountry(country);
       }}
     >
       {({
@@ -41,10 +43,11 @@ export default function CountryInput({
               {...getInputProps()}
               onKeyDown={handleKeyDown}
               className="country-name-input"
+              onChange={(e) => setCountry(e.target.value)}
             />
           </div>
           <ul className="country-names" {...getMenuProps()}>
-            {isOpen
+            {inputValue
               ? countryNames
                   .filter(
                     (item) =>
