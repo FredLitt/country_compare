@@ -82,7 +82,7 @@ img {
   text-align: left;
 }
 
-#comparison-table tr {
+#comparison-table tbody tr {
   text-align: center;
   border: 0.01vw solid var(--dark-blue);
 }

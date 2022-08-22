@@ -81,9 +81,9 @@ function App() {
     const getCountryNamesList = async () => {
       const allCountries: AxiosResponse<CountryNameResponse[]> =
         await axios.get("https://restcountries.com/v3.1/all");
-      const allCountryNames = allCountries.data.map(
-        (country) => country.name.common
-      );
+      const allCountryNames = allCountries.data
+        .map((country) => country.name.common)
+        .sort();
       setCountryNames(allCountryNames);
     };
     getCountryNamesList();
