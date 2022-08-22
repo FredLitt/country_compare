@@ -26,13 +26,17 @@ export default function CountryInput({
     selectedItem,
   } = useCombobox({
     onInputValueChange({ inputValue }) {
-      setFilteredCountries(
-        countryNames.filter(
-          (item) =>
-            !inputValue ||
-            item.toLowerCase().startsWith(inputValue.toLowerCase())
-        )
-      );
+      if (inputValue)
+        setFilteredCountries(
+          countryNames.filter(
+            (item) =>
+              !inputValue ||
+              item.toLowerCase().startsWith(inputValue.toLowerCase())
+          )
+        );
+      if (filteredCountries.length === 1) {
+        setCountry(filteredCountries[0]);
+      }
     },
     items: filteredCountries,
     itemToString(item) {

@@ -99,12 +99,14 @@ img {
 
 .country-names {
   border: 1px solid var(--dark-blue);
+  height: 16px + 1vw;
   position: absolute;
   list-style: none;
   margin-block-start: 0px;
   margin-block-end: 0px;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+  overflow: auto;
   padding-inline-start: 0px;
 }
 
