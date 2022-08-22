@@ -98,6 +98,7 @@ img {
 }
 
 .country-names {
+  border: 1px solid var(--dark-blue);
   position: absolute;
   list-style: none;
   margin-block-start: 0px;
@@ -109,7 +110,7 @@ img {
 
 .country-names > li {
   text-align: left;
-  margin-right: 5px;
+
   width: 15rem;
   z-index: 3;
 }

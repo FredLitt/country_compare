@@ -14,10 +14,9 @@ export default function CountryInput({
   loadCountryData,
   inputValue,
 }: CountryInputProps) {
-  const [countries, setCountries] = useState(countryNames);
+  const [filteredCountries, setFilteredCountries] = useState(countryNames);
   const {
     isOpen,
-    getToggleButtonProps,
     getLabelProps,
     getMenuProps,
     getInputProps,
@@ -27,7 +26,7 @@ export default function CountryInput({
     selectedItem,
   } = useCombobox({
     onInputValueChange({ inputValue }) {
-      setCountries(
+      setFilteredCountries(
         countryNames.filter(
           (item) =>
             !inputValue ||
@@ -35,7 +34,7 @@ export default function CountryInput({
         )
       );
     },
-    items: countries,
+    items: filteredCountries,
     itemToString(item) {
       return item ? item : "";
     },
@@ -53,13 +52,14 @@ export default function CountryInput({
       </div>
       <ul className="country-names" {...getMenuProps()}>
         {isOpen
-          ? countries.map((item, index) => (
+          ? filteredCountries.map((item, index) => (
               <li
                 {...getItemProps({
                   key: item,
                   index,
                   item,
                   style: {
+                    padding: ".25em",
                     backgroundColor:
                       highlightedIndex === index ? "lightgray" : "white",
                     fontWeight: selectedItem === item ? "bold" : "normal",
