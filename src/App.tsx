@@ -15,8 +15,6 @@ import axios, { AxiosResponse } from "axios";
 
 function App() {
   const [rawCountryData, setRawCountryData] = useState<CountryData[] | []>([]);
-  const [formValidationMessage, setFormValidationMessage] =
-    useState<string>("");
 
   const countryDataArray =
     rawCountryData.length === 0 ? [] : createCountryDataArray(rawCountryData);
@@ -30,32 +28,17 @@ function App() {
     firstCountryName: string,
     secondCountryName: string
   ) => {
-    const missingCountryName =
-      firstCountryName === "" || secondCountryName === "";
-    const sameCountry = firstCountryName === secondCountryName;
-    if (missingCountryName)
-      return setFormValidationMessage("Please enter two country names.");
-    if (sameCountry)
-      return setFormValidationMessage(
-        "Please enter two different country names."
-      );
     const firstCountryData: CountryResponse = await getCountryData(
       firstCountryName
     );
     const secondCountryData: CountryResponse = await getCountryData(
       secondCountryName
     );
-    const invalidResponse =
-      firstCountryData === "error" || secondCountryData === "error";
-    if (invalidResponse) {
-      setFormValidationMessage("Please enter valid country names.");
-    }
+
     setRawCountryData([
       formatCountryData(firstCountryData),
       formatCountryData(secondCountryData),
     ]);
-
-    setFormValidationMessage("");
   };
 
   const loadRandomCountryData = async () => {
@@ -63,7 +46,6 @@ function App() {
     const secondRandomCountryName = await getRandomCountry();
     loadCountryData(firstRandomCountryName, secondRandomCountryName);
     setCountries({ first: "", second: "" });
-    setFormValidationMessage("");
   };
 
   const firstCountry = rawCountryData[0];
@@ -76,6 +58,11 @@ function App() {
       common: string;
     };
   };
+
+  const validEntries =
+    countries.first &&
+    countries.second &&
+    countries.first.toLowerCase() !== countries.second.toLowerCase();
 
   useEffect(() => {
     const getCountryNamesList = async () => {
@@ -92,12 +79,11 @@ function App() {
   return (
     <div className="App">
       <section id="search-wrapper">
-        <h1 id="app-header">Enter the Names of Two Countries</h1>
+        <h1 id="app-header">Enter Two Country Names</h1>
         <div id="input-wrapper">
           <CountryInput
             countryNames={countryNames}
             setCountry={(country: string) => {
-              console.log("country:", country, "countries:", countries);
               setCountries({ ...countries, first: country });
             }}
             loadCountryData={() =>
@@ -117,8 +103,12 @@ function App() {
           />
 
           <button
-            className="compare-btn"
-            onClick={() => loadCountryData(countries.first, countries.second)}
+            className={validEntries ? "compare-btn" : "unclickable"}
+            onClick={
+              validEntries
+                ? () => loadCountryData(countries.first, countries.second)
+                : undefined
+            }
             type="button"
           >
             Compare!
@@ -127,7 +117,6 @@ function App() {
             Compare random
           </button>
         </div>
-        {<>{formValidationMessage}</>}
       </section>
       {rawCountryData.length !== 0 && (
         <>

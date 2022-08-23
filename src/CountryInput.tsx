@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Downshift, { useCombobox } from "downshift";
+import { useCombobox } from "downshift";
 
 type CountryInputProps = {
   countryNames: string[];
@@ -26,6 +26,11 @@ export default function CountryInput({
     selectedItem,
   } = useCombobox({
     onInputValueChange({ inputValue }) {
+      if (!inputValue) {
+        setFilteredCountries([]);
+        setCountry("");
+        setInvalidInput(false);
+      }
       if (inputValue)
         setFilteredCountries(
           countryNames.filter(
@@ -34,8 +39,25 @@ export default function CountryInput({
               item.toLowerCase().startsWith(inputValue.toLowerCase())
           )
         );
-      if (filteredCountries.length === 1) {
-        setCountry(filteredCountries[0]);
+      const inputExistsInCountryName =
+        inputValue &&
+        countryNames.some((name) =>
+          name.toLowerCase().startsWith(inputValue.toLowerCase())
+        );
+      const onlyRemainingCountry =
+        inputValue &&
+        countryNames.some(
+          (name) => name.toLowerCase() === inputValue.toLowerCase()
+        );
+      if (onlyRemainingCountry) {
+        setInvalidInput(false);
+        return setCountry(inputValue);
+      }
+      if (!inputExistsInCountryName && inputValue !== "") {
+        setInvalidInput(true);
+      } else {
+        setCountry("");
+        setInvalidInput(false);
       }
     },
     items: filteredCountries,
@@ -43,16 +65,29 @@ export default function CountryInput({
       return item ? item : "";
     },
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
-      console.log("selected:", selectedItem);
       setCountry(newSelectedItem);
     },
   });
+
+  const [invalidInput, setInvalidInput] = useState(false);
 
   return (
     <div>
       <label {...getLabelProps()} htmlFor="country-name-input"></label>
       <div style={{ display: "inline" }} {...getComboboxProps()}>
-        <input {...getInputProps()} className="country-name-input" />
+        <input
+          {...getInputProps()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              loadCountryData();
+            }
+          }}
+          spellCheck="false"
+          className="country-name-input"
+          style={{
+            border: invalidInput ? "1px solid red" : "1px solid var(--blue)",
+          }}
+        />
       </div>
       <ul className="country-names" {...getMenuProps()}>
         {isOpen

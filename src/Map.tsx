@@ -2,7 +2,7 @@ import React from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 const getMapZoom = () => {
-  return window.matchMedia("(min-width: 600px)").matches ? 2.6 : 2.4;
+  return window.matchMedia("(min-width: 900px)").matches ? 2.5 : 0.5;
 };
 
 export default function Map({

@@ -42,14 +42,13 @@ img {
 
 .country-name-input {
   height: 2rem;
-  border: 1px solid var(--blue);
   padding-left: 0.5rem;
   border-radius: 2px;
   margin: 0 0.5em 0 0.5em;
 }
 
 .country-name-input:focus {
-  outline: 2px solid var(--dark-blue);
+  outline: none;
   box-sizing: border-box;
 }
 
@@ -64,6 +63,16 @@ img {
   cursor: pointer;
   border-radius: 5px;
   background-color: var(--dark-blue);
+  height: 2rem;
+  width: 8rem;
+  margin: 0.5em;
+  border: none;
+}
+
+.unclickable {
+  color: white;
+  border-radius: 5px;
+  background-color: lightgrey;
   height: 2rem;
   width: 8rem;
   margin: 0.5em;
@@ -99,7 +108,6 @@ img {
 
 .country-names {
   border: 1px solid var(--dark-blue);
-  height: 16px + 1vw;
   position: absolute;
   list-style: none;
   margin-block-start: 0px;
@@ -127,25 +135,26 @@ tr > td:nth-child(3n) {
   width: 40%;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 750px) {
   html {
     font-size: 0.4em;
   }
 
   #search-wrapper {
     margin: 10px auto;
-    width: 90vw;
+
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
   .country-name-input {
-    width: 60%;
+    width: 10vw;
     font-size: 1em;
   }
 
-  .compare-btn {
+  .compare-btn,
+  .unclickable {
     font-size: 1em;
     height: 3em;
     width: 25%;
@@ -160,5 +169,11 @@ tr > td:nth-child(3n) {
     margin: 10px auto;
     font-size: 1.5em;
     text-align: left;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  #search-wrapper {
+    width: 90%;
   }
 }
