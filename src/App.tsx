@@ -23,7 +23,7 @@ function App() {
     first: "",
     second: "",
   });
-  console.log(countries);
+
   const loadCountryData = async (
     firstCountryName: string,
     secondCountryName: string
@@ -45,7 +45,10 @@ function App() {
     const firstRandomCountryName = await getRandomCountry();
     const secondRandomCountryName = await getRandomCountry();
     loadCountryData(firstRandomCountryName, secondRandomCountryName);
-    setCountries({ first: "", second: "" });
+    setCountries({
+      first: "",
+      second: "",
+    });
   };
 
   const firstCountry = rawCountryData[0];
@@ -86,20 +89,12 @@ function App() {
             setCountry={(country: string) => {
               setCountries({ ...countries, first: country });
             }}
-            loadCountryData={() =>
-              loadCountryData(countries.first, countries.second)
-            }
-            inputValue={countries.first}
           />
           <CountryInput
             countryNames={countryNames}
             setCountry={(country: string) =>
               setCountries({ ...countries, second: country })
             }
-            loadCountryData={() =>
-              loadCountryData(countries.first, countries.second)
-            }
-            inputValue={countries.second}
           />
 
           <button

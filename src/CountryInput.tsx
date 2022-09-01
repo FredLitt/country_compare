@@ -4,17 +4,14 @@ import { useCombobox } from "downshift";
 type CountryInputProps = {
   countryNames: string[];
   setCountry: any;
-  loadCountryData: any;
-  inputValue: string;
 };
 
 export default function CountryInput({
   countryNames,
   setCountry,
-  loadCountryData,
-  inputValue,
 }: CountryInputProps) {
   const [filteredCountries, setFilteredCountries] = useState(countryNames);
+
   const {
     isOpen,
     getLabelProps,
