@@ -77,11 +77,6 @@ export default function CountryInput({
       <div style={{ display: "inline" }} {...getComboboxProps()}>
         <input
           {...getInputProps()}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              loadCountryData();
-            }
-          }}
           spellCheck="false"
           className="country-name-input"
           style={{
